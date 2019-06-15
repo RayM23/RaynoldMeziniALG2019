@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+typedef struct list{
+string word;
+struct list* next;
+};
+int main() {
+cout<<"Fjalor me liste 1D"<<endl;
+cout<<"Jepni emrin e skedarit"<<endl;
+
+string EmriFilet, eteeee;
+cin>>EmriFilet;
+ifstream input;
+input.open(EmriFilet);
+
+list*head = new list;
+head = NULL;
+
+if(!input.is_open()){
+cout<<"Gabim"<<endl;
+}
+else{
+while(input>>eteeee){
+if(!alreadyExist(head,eteeee)){
+head=add(head,eteeee);
+}
+}
+}
+
+print(head);
+return 0;
+}
+
+bool alreadyExist(list*head, string s){
+list*control;
+control = head;
+while(control!=NULL){
+if(control->word==s){
+return true;
+}
+else{
+control=control->next;
+}
+}
+return false;
+}
+
+list* add(list*head, string s){
+list*tmp;
+tmp = new list;
+tmp->word=s;
+tmp->next=head;
+head = tmp;
+}
+
+void print(list*head){
+list*control;
+control = head;
+while(control!=NULL){
+cout<<control->word<<endl;
+control=control->next;
+}
+}

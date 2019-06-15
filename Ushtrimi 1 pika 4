@@ -1,0 +1,72 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+typedef struct list{
+string word;
+struct list* next;
+};
+
+int main(int argc, char** argv) {
+cout<<"Fjalor me tabele hash."<<endl;
+cout<<"Jepni emrin e skedarit"<<endl;
+
+string emriFilet, item;
+cin>>emriFilet;
+ifstream input;
+input.open(emriFilet);
+vector<string> words;
+
+if(!input.is_open()){
+
+cout<<"error!"<<endl;
+}
+else{
+while(input>>item){
+if(!(find(words.begin(), words.end(), item) != words.end())){ 
+words.push_back(item);
+}
+}
+
+int n=words.size();
+list* hashTable[n];
+for(int i=0; i<n; i++){
+hashTable[i]=NULL;
+}
+int hashed;
+for(int i=0; i<n; i++){
+hashed=hashMe(words[i],n);
+hashTable[hashed]=add(hashTable[hashed],words[i]);
+}
+
+for(int i=0; i<n; i++){
+list*l = hashTable[i];
+while(l!=NULL){
+cout<<l->word<<endl;
+l = l->next;
+}
+}
+}
+return 0;
+}
+
+list* add(list*koka, string serr){
+list*tmp;
+tmp = new list;
+tmp->word=s;
+tmp->next=koka;
+koka = tmp;
+}
+
+int hashMe(string serr, int n){
+if(n<0)return -1;
+int g = 9;
+int hash;
+for(int i=0; i<serr.length(); i++){
+hash=g*hash+serr[i];
+}
+return hash%n;
+}  

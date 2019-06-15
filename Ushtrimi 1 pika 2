@@ -1,0 +1,84 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+typedef struct tree{
+	string word;
+	struct tree* right;
+	struct tree* left;
+};
+
+int main() {
+	cout<<"Fjalor me peme "<<endl;
+	cout<<"Jepni emrin e filet"<<endl;
+
+	string emriFilet, eteeee;
+	cin>>emriFilet;
+	ifstream input;
+	input.open(emriFilet);
+
+	tree*rrenja = new tree;
+	rrenja = NULL;
+	
+	if(!input.is_open()){
+		cout<<"error"<<endl;
+	}
+	else{
+		while(input>>eteeee){
+			if(!alreadyExist(rrenja,eteeee)){ 
+				root=add(rrenja,eteeee); 
+			}
+		}
+	}
+	print(rrenja);
+	return 0;
+}
+
+void print(tree*rrenja){
+	if(rrenja==NULL)return;
+	print(rrenja->left);
+	cout<<rrenja->word<<endl;
+	print(rrenja->right);
+}
+
+
+bool alreadyExist(tree*rrenja, string s){
+	if(rrenja==NULL)return false;
+	if(rrenja->word==s)return true;
+	
+	bool rose=alreadyExist(root->left,s);
+	if(rose)return true;
+	
+	bool bet=alreadyExist(root->right,s);
+	return bet;
+}
+
+
+
+
+
+tree* add(tree*rrenja, string s){
+	tree*x;
+	x=new tree;
+  x->word=s;
+  x->right=NULL
+  x->left=NULL;
+
+ if(root==NULL)return x;
+ tree*baba = NULL;
+ tree*now = root;
+    while(current!=NULL){
+    	parent=current;
+    	if(current->word<s)current=current->right;
+    	else{
+    		current=current->left;
+		}
+	}
+		if(parent->word<s){
+			parent->right=p;
+		}
+		else{
+			parent->left=p;
+		}
+    return root;
+
